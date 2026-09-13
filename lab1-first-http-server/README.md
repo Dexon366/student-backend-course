@@ -545,6 +545,7 @@ HTTP-код:
 ### Автоматический перезапуск
 
 ![Node.js — обновление кода](screenshots/code-update.png)
+![Node.js — обновление кода](screenshots/website-update.png)
 
 ---
 
@@ -577,6 +578,7 @@ HTTP-код:
 ### Автоматический перезапуск
 
 ![Flask — обновление кода](screenshots/flask-code-update.png)
+![Node.js — обновление кода](screenshots/flask-website-update.png)
 
 ---
 
