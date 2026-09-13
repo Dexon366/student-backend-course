@@ -1,0 +1,16 @@
+```text
+# Главная страница
+curl http://localhost:3000/
+
+# Список заказов
+curl http://localhost:3000/api/orders
+
+# Список клиентов
+curl http://localhost:3000/api/clients
+
+# Заказ с указанным ID
+curl http://localhost:3000/api/orders/5
+
+# Проверка обработки 404
+curl http://localhost:3000/abc
+```
