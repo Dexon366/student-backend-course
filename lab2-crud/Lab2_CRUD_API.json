@@ -1,0 +1,500 @@
+{
+  "info": {
+    "_postman_id": "61410a02-04fc-47f2-b9e5-de297e42da82",
+    "name": "Lab2 CRUD API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58292660",
+    "_collection_link": "https://go.postman.co/collection/58292660-61410a02-04fc-47f2-b9e5-de297e42da82?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET All Students",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Ответ в формате JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Есть поле count\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"count\");\r\n});\r\n\r\npm.test(\"students — это массив\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.students).to.be.an(\"array\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Student by ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Ответ содержит ID\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n});\r\n\r\npm.test(\"ID равен 1\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.id).to.eql(1);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Student Not Found",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 404 Not Found\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Ответ содержит error\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students/999",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Create Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 201 Created\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Ответ содержит ID\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"id\");\r\n    pm.expect(jsonData.id).to.be.a(\"number\");\r\n});\r\n\r\npm.test(\"Студент создан\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.name).to.eql(\"Алексей Волков\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Алексей Волков\",\r\n    \"group\": \"ИВТ-104\",\r\n    \"course\": 2,\r\n    \"avg_grade\": 4.5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/students",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Invalid Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 400 Bad Request\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Ответ содержит error\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"error\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Ошибка\",\r\n    \"group\": \"ИВТ-999\",\r\n    \"course\": 10,\r\n    \"avg_grade\": 4.5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/students",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Update Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Студент обновлён\", function () {\r\n    const jsonData = pm.response.json();\r\n\r\n    pm.expect(jsonData.id).to.eql(1);\r\n    pm.expect(jsonData.group).to.eql(\"ИВТ-201\");\r\n    pm.expect(jsonData.course).to.eql(3);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Иван Иванов\",\r\n    \"group\": \"ИВТ-201\",\r\n    \"course\": 3,\r\n    \"avg_grade\": 4.7\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/students/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH Update Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Средний балл изменён\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.avg_grade).to.eql(4.9);\r\n});\r\n\r\npm.test(\"ID сохранился\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.id).to.eql(1);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"avg_grade\": 4.9\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/students/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 204 No Content\", function () {\r\n    pm.response.to.have.status(204);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students/6",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "6"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Search Students",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Результат содержит студентов\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.students).to.be.an(\"array\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students?search=Иван",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "Иван"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Sort Students",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Результат отсортирован по среднему баллу\", function () {\r\n    const jsonData = pm.response.json();\r\n    const students = jsonData.students;\r\n\r\n    for (let i = 1; i < students.length; i++) {\r\n        pm.expect(students[i - 1].avg_grade)\r\n            .to.be.at.least(students[i].avg_grade);\r\n    }\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students?sort=avg_grade&order=desc",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students"
+          ],
+          "query": [
+            {
+              "key": "sort",
+              "value": "avg_grade"
+            },
+            {
+              "key": "order",
+              "value": "desc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Students Pagination",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Размер страницы равен 2\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.limit).to.eql(2);\r\n});\r\n\r\npm.test(\"Возвращён массив студентов\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.students).to.be.an(\"array\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students?page=1&limit=2",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Bulk Create Students",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 201 Created\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Создано 2 студента\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.count).to.eql(2);\r\n});\r\n\r\npm.test(\"students — массив\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.students).to.be.an(\"array\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"students\": [\r\n        {\r\n            \"name\": \"Олег Попов\",\r\n            \"group\": \"ИВТ-105\",\r\n            \"course\": 1,\r\n            \"avg_grade\": 4.1\r\n        },\r\n        {\r\n            \"name\": \"Елена Морозова\",\r\n            \"group\": \"ИВТ-106\",\r\n            \"course\": 4,\r\n            \"avg_grade\": 4.9\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/students/bulk",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "bulk"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Students Stats",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Есть количество студентов\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"count\");\r\n});\r\n\r\npm.test(\"Есть средний балл\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"average_grade\");\r\n});\r\n\r\npm.test(\"Средний балл — число\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.average_grade).to.be.a(\"number\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students/stats",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "stats"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Related Students",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Статус 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Есть группа\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"group\");\r\n});\r\n\r\npm.test(\"Есть related\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.related).to.be.an(\"array\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students/1/related",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "1",
+            "related"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE All Students",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
