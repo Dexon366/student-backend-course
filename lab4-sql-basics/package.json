@@ -1,0 +1,26 @@
+{
+  "name": "lab4-sql-basics",
+  "version": "1.0.0",
+  "description": "> **Студент:** Мамиев Ибрагим Ахмедович\r > **Группа:** ПИЖ-б-о-25-2(2) \r > **Лабораторная работа:** №4 - SQL and SQLite",
+  "main": "db.js",
+"scripts": {
+  "start": "node db.js",
+  "dev": "nodemon db.js",
+  "reset": "node db.js --reset"
+},
+  "keywords": [
+    "sql",
+    "sqlite",
+    "backend",
+    "students"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "better-sqlite3": "^13.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
