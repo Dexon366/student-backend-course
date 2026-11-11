@@ -168,21 +168,21 @@ lab4-sql-basics/
 ├── 📄 execution.log
 │
 └── 📂 screenshots/
-    ├── 01-project-structure.png
-    ├── 02-database-creation.png
-    ├── 03-insert-data.png
-    ├── 04-crud-operations.png
-    ├── 05-sorting-pagination.png
-    ├── 06-search-filters.png
-    ├── 07-aggregate-functions.png
-    ├── 08-group-by-having.png
-    ├── 09-inner-join.png
-    ├── 10-left-join.png
-    ├── 11-subquery.png
-    ├── 12-transactions.png
-    ├── 13-foreign-key.png
-    ├── 14-indexes.png
-    └── 15-database-structure.png
+    ├── project-structure.png
+    ├── database-creation.png
+    ├── insert-data.png
+    ├── crud-operations.png
+    ├── sorting-pagination.png
+    ├── search-filters.png
+    ├── aggregate-functions.png
+    ├── group-by-having.png
+    ├── inner-join.png
+    ├── left-join.png
+    ├── subquery.png
+    ├── transactions.png
+    ├── foreign-key.png
+    ├── indexes.png
+    └── database-structure.png
 ```
 
 Файл `lab4.db` создаётся автоматически при выполнении программы и не добавляется в Git, поскольку база данных формируется из SQL-скрипта и тестовых данных.
